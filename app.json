@@ -2,18 +2,11 @@
   "expo": {
     "name": "ToDo List",
     "slug": "todo-list",
-    "version": "0.0.1",
+    "scheme": "todo-list",
+    "version": "0.0.2",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0d0d0d"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "bundleIdentifier": "br.dev.leonascimento.toDoList",
       "supportsTablet": false
@@ -21,14 +14,24 @@
     "android": {
       "package": "br.dev.leonascimento.toDoList",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0d0d0d"
-      },
-      "versionCode": 2
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/favicon.png"
     },
+	"plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 160,
+          "resizeMode": "cover",
+          "backgroundColor": "#0d0d0d"
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "19058fdd-18ae-400e-8f3a-5efecdcb2e05"

@@ -1,7 +1,7 @@
-import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
-import { styles } from "./styles";
+import { TouchableOpacity, type TouchableOpacityProps, View } from "react-native";
 
-import Check from '../../assets/check.svg'
+import Check from '../../assets/check.svg';
+import { styles } from "./styles";
 
 interface CheckboxProps extends TouchableOpacityProps {
   value?: boolean;

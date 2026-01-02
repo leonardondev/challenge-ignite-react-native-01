@@ -1,13 +1,12 @@
-import { FlatList ,Text, TextInput, TouchableOpacity, View, Alert, Image, Keyboard } from "react-native";
-import { styles } from "./styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Alert, FlatList, Image, Keyboard, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { colors } from "../../theme/colors";
-
+import clipboardImg from '../../assets/clipboard.png';
 import Logo from "../../assets/logo.svg";
 import Plus from "../../assets/plus.svg";
-import clipboardImg from '../../assets/clipboard.png'
-import { Task } from "../../components/Task";
+import { TaskCard } from "../../components/Task";
+import { colors } from "../../theme/colors";
+import { styles } from "./styles";
 
 interface Task {
   name: string
@@ -17,15 +16,15 @@ interface Task {
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [taskName, setTaskName] = useState<string>("")
-  const [isInputFocused,setIsInputFocused] = useState(false);
-  const [tasksDoneCount,setTasksDoneCount] = useState(0);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [tasksDoneCount, setTasksDoneCount] = useState(0);
 
   function handleTaskAdd() {
-    if(tasks.some(task => task.name === taskName)){
+    if (tasks.some(task => task.name === taskName)) {
       return Alert.alert("Tarefa duplicada", "Já existe um tarefa na lista com esse nome.")
     }
 
-    setTasks(prevSate => [...prevSate, {name: taskName, done: false}])
+    setTasks(prevSate => [...prevSate, { name: taskName, done: false }])
     setTaskName("")
     Keyboard.dismiss()
   }
@@ -34,10 +33,11 @@ export function Home() {
     Alert.alert("Remover", `Remover a tarefa "${name}"?`, [
       {
         text: "Sim",
-        onPress: () => setTasks(prevSate => { 
+        onPress: () => setTasks(prevSate => {
           const newState = prevSate.filter(task => task.name !== name)
           setTasksDoneCount(newState.filter(task => task.done).length)
-          return newState}
+          return newState
+        }
         )
       },
       {
@@ -52,7 +52,7 @@ export function Home() {
     const task = tasks[taskIndex]
 
     setTasks(prevSate => {
-      prevSate.splice(taskIndex, 1, { name: task.name , done: !task.done })
+      prevSate.splice(taskIndex, 1, { name: task.name, done: !task.done })
       return prevSate
     })
     setTasksDoneCount(tasks.filter(task => task.done).length)
@@ -74,8 +74,8 @@ export function Home() {
           placeholderTextColor={colors.gray300}
           value={taskName}
           onChangeText={setTaskName}
-          onFocus={()=> setIsInputFocused(true)}
-          onBlur={()=> setIsInputFocused(false)}
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
         />
         <TouchableOpacity
           style={styles.button}
@@ -89,12 +89,12 @@ export function Home() {
 
       <View style={styles.counters}>
         <View style={styles.conter}>
-          <Text style={[styles.counterText, { color: colors.blue}]}>Criadas</Text>
+          <Text style={[styles.counterText, { color: colors.blue }]}>Criadas</Text>
           <Text style={styles.counterValue}>{tasks.length}</Text>
         </View>
 
         <View style={styles.conter}>
-          <Text style={[styles.counterText ,{ color: colors.purple}]}>Concluídas</Text>
+          <Text style={[styles.counterText, { color: colors.purple }]}>Concluídas</Text>
           <Text style={styles.counterValue}>{tasksDoneCount}</Text>
         </View>
       </View>
@@ -104,22 +104,22 @@ export function Home() {
         keyExtractor={item => item.name}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
-        renderItem={({item}) => (
-          <Task 
-            name={item.name} 
-            checked={item.done} 
-            onPressCheckbox={() => handleTaskCheck(item.name) }
-            onPressTrash={() => handleTaskRemove(item.name)} 
+        renderItem={({ item }) => (
+          <TaskCard
+            name={item.name}
+            checked={item.done}
+            onPressCheckbox={() => handleTaskCheck(item.name)}
+            onPressTrash={() => handleTaskRemove(item.name)}
           />
         )}
         ListEmptyComponent={() => (
           <View style={styles.listEmptyContainer}>
             <Image source={clipboardImg} style={styles.listEmptyImage} />
             <Text style={[styles.listEmptyText, { fontWeight: 'bold' }]} >Você ainda não tem tarefas cadastradas</Text>
-            <Text style={styles.listEmptyText} >Crie tarefas e organize seus itens a fazer</Text> 
+            <Text style={styles.listEmptyText} >Crie tarefas e organize seus itens a fazer</Text>
           </View>
         )}
-      />      
+      />
     </View>
   );
 }

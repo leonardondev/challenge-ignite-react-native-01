@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Checkbox } from "../Checkbox";
-import { styles } from "./styles";
 
 import Trash from '../../assets/trash.svg';
+import { Checkbox } from "../Checkbox";
+import { styles } from "./styles";
 
 interface TaskProps {
   name: string;
@@ -12,7 +12,7 @@ interface TaskProps {
   onPressTrash: () => void
 }
 
-export function Task({ name, checked, onPressCheckbox, onPressTrash }: TaskProps) {
+export function TaskCard({ name, checked, onPressCheckbox, onPressTrash }: TaskProps) {
   const [isChecked, setChecked] = useState(checked)
 
   function handlePressCheckbox() {
